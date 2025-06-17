@@ -5,7 +5,8 @@ set (CMAKE_CXX_STANDARD 23)
 add_subdirectory (Catch2)
 
 if (APPLE)
-    add_executable (accelerate_DSP VectorisationWrappers/Accelerate/AccelerateWrapper.cpp)
+    add_executable (accelerate_DSP VectorisationWrappers/Accelerate/AccelerateWrapper.h
+                                   VectorisationWrappers/AccelerateWrapperUnitTests.cpp)
     target_link_libraries (accelerate_DSP PRIVATE Catch2::Catch2WithMain "$<LINK_LIBRARY:FRAMEWORK,Accelerate>")
 ELSEIF (MSVC)
     message ("No Wrapper is availble")
