@@ -13,6 +13,8 @@ jobs:
     steps:
     - name: Checkout source
       uses: actions/checkout@v4
+      with:
+        submodules: recursive  # Initializes and updates submodules recursively
 
     - name: Set up CMake
       run: |
