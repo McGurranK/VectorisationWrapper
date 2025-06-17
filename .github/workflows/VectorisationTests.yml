@@ -1,4 +1,4 @@
-name: Vectorisation Tests CI
+name: Vectorisation Tests
 
 on:
   push:
@@ -16,30 +16,30 @@ jobs:
       with:
         submodules: recursive
 
-    - name: Cache Catch2 build
+    - name: Cache CMake build (Catch2 and project)
       uses: actions/cache@v4
       with:
-        path: |
-          build/external/Catch2
-        key: ${{ runner.os }}-catch2-${{ hashFiles('external/Catch2/**', 'CMakeLists.txt') }}
+        path: build
+        key: ${{ runner.os }}-build-${{ hashFiles('CMakeLists.txt', 'external/Catch2/**') }}
         restore-keys: |
-          ${{ runner.os }}-catch2-
+          ${{ runner.os }}-build-
 
     - name: Set up CMake
-      run: |
-        cmake --version
+      run: cmake --version
 
     - name: Configure with CMake
-      run: |
-        mkdir build
-        cd build
-        cmake .. -DCMAKE_BUILD_TYPE=Release
+      run: cmake -B build -DCMAKE_BUILD_TYPE=Release
 
     - name: Build
-      run: |
-        cd build
-        cmake --build . --config Release
+      run: cmake --build build --config Release
 
-    - name: Run Catch2 Tests
+    - name: Run Catch2 Tests and Save Output
       run: |
-        ./build/accelerate_dsp --reporter console
+        ./build/accelerate_dsp --reporter console | tee test_output.txt
+
+    - name: Upload Test Logs
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: catch2-test-log
+        path: test_output.txt
