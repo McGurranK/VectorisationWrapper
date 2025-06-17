@@ -14,7 +14,16 @@ jobs:
     - name: Checkout source
       uses: actions/checkout@v4
       with:
-        submodules: recursive  # Initializes and updates submodules recursively
+        submodules: recursive
+
+    - name: Cache Catch2 build
+      uses: actions/cache@v4
+      with:
+        path: |
+          build/external/Catch2
+        key: ${{ runner.os }}-catch2-${{ hashFiles('external/Catch2/**', 'CMakeLists.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-catch2-
 
     - name: Set up CMake
       run: |
