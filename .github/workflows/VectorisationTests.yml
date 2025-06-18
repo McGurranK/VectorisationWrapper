@@ -16,14 +16,6 @@ jobs:
       with:
         submodules: recursive
 
-    - name: Cache CMake build (Catch2 and project)
-      uses: actions/cache@v4
-      with:
-        path: build
-        key: ${{ runner.os }}-build-${{ hashFiles('CMakeLists.txt', 'external/Catch2/**') }}
-        restore-keys: |
-          ${{ runner.os }}-build-
-
     - name: Set up CMake
       run: cmake --version
 
@@ -35,6 +27,7 @@ jobs:
 
     - name: Run Catch2 Tests and Save Output
       run: |
+        set -o pipefail
         ./build/accelerate_dsp --reporter console | tee test_output.txt
 
     - name: Upload Test Logs
