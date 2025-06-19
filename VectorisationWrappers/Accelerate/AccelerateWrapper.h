@@ -3,7 +3,7 @@
 #include <Accelerate/Accelerate.h>
 
 // VDSP wrapper namespace in a vectorised way
-namespace vivi::VectorisedDSP
+namespace Vectorised
 {
     // Vectorised Addition function for VDSP
     template <typename T>
@@ -67,6 +67,7 @@ namespace vivi::VectorisedDSP
         else if constexpr (std::is_same_v<T, double>)
             vvdiv (OutputPtr, InputPtr, OutputPtr, &BufferSize);
     }
+
 
     // Vectorised tanh function for VDSP
     template <typename T>

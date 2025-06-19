@@ -14,7 +14,7 @@ TEST_CASE("VDSP wrapper testing", "[VDSP Wrapper]")
 
     SECTION ("Addition Test")
     {
-        vivi::VectorisedDSP::additionVectorised (input.data(), output.data(), 256);
+        Vectorised::additionVectorised (input.data(), output.data(), 256);
 
         for (const auto buffer : { &input, &output })
         {
@@ -25,7 +25,7 @@ TEST_CASE("VDSP wrapper testing", "[VDSP Wrapper]")
 
     SECTION ("Subtraction Test")
     {
-        vivi::VectorisedDSP::subtractionVectorised (input.data(), output.data(), 256);
+        Vectorised::subtractionVectorised (input.data(), output.data(), 256);
 
         for (const auto buffer : { &input, &output })
         {
@@ -36,22 +36,22 @@ TEST_CASE("VDSP wrapper testing", "[VDSP Wrapper]")
 
     SECTION ("Multiplication Test")
     {
-        vivi::VectorisedDSP::multiplicationVectorised (input.data(), output.data(), 256);
+       Vectorised::multiplicationVectorised (input.data(), output.data(), 256);
     }
 
     SECTION ("Division Test")
     {
-        vivi::VectorisedDSP::divisionVectorised (input.data(), output.data(), 256);
+        Vectorised::divisionVectorised (input.data(), output.data(), 256);
     }
 
     SECTION ("Division Test")
     {
-        vivi::VectorisedDSP::tanhVectorised (input.data(), output.data(), 256);
+        Vectorised::tanhVectorised (input.data(), output.data(), 256);
     }
 
     SECTION ("Division Test")
     {
-        vivi::VectorisedDSP::sineVectorised (input.data(), 256);
+        Vectorised::sineVectorised (input.data(), 256);
     }
 
     SECTION ("Division Test")
@@ -59,6 +59,6 @@ TEST_CASE("VDSP wrapper testing", "[VDSP Wrapper]")
         const auto lowerLimit = -1.f;
         const auto upperLimit = -1.f;
 
-        vivi::VectorisedDSP::hardClipVectorised (input.data(), output.data(), 256, &lowerLimit, &upperLimit);
+        Vectorised::hardClipVectorised (input.data(), output.data(), 256, &lowerLimit, &upperLimit);
     }
 }
