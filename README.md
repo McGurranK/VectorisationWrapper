@@ -1,4 +1,4 @@
-# Vectorisation Formatting (MACOS support only - Temporary)
+# 🐛 Vectorisation Formatting (MACOS support only - Temporary)
 
 ### Summary
 - Static wrapper functions around float & doubles processing per platform.
