@@ -23,7 +23,7 @@ namespace Vectorised::Range
     }
 
     template <typename T>
-    static void minimumValueIndex(T* Buffer, int BufferSize, T& OutputValue, int Stride, int& Position)
+    static void minimumValueIndex(T* Buffer, int BufferSize, T& OutputValue, int& Position, int Stride = 1)
     {
         vDSP_Length pos = 0;
 
