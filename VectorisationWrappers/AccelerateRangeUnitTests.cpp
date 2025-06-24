@@ -10,8 +10,7 @@ TEST_CASE ("Accelerate Ranges Unit tests", "[Accelerate Ranges]")
 
     const auto minValue = -1.f;
     const auto maxValue = 1.f;
-
-
+    
     std::vector<float> buffer (bufferSize);
     buffer.assign (bufferSize, 0.f);
 
@@ -32,5 +31,22 @@ TEST_CASE ("Accelerate Ranges Unit tests", "[Accelerate Ranges]")
         Vectorised::Range::minimumValueIndex (buffer.data(), bufferSize, outputValue, range);
         REQUIRE (outputValue == minValue);
         REQUIRE (range == minimumIndex);
+    }
+
+    SECTION ("Maximum Value")
+    {
+        auto outputValue = -10.f;
+        auto range = -1;
+        Vectorised::Range::maximumValue (buffer.data(), bufferSize, outputValue);
+        REQUIRE (outputValue == maxValue);
+    }
+
+    SECTION ("Maximum Value with Index")
+    {
+        auto outputValue = -10.f;
+        auto range = -1;
+        Vectorised::Range::maximumValueIndex (buffer.data(), bufferSize, outputValue, range);
+        REQUIRE (outputValue == maxValue);
+        REQUIRE (range == maximumIndex);
     }
 }

@@ -36,7 +36,7 @@ namespace Vectorised::Range
     }
 
     template <typename T>
-    static void maximumValueIndex(T* Buffer, int BufferSize, T& OutputValue, int Stride, int& Position)
+    static void maximumValueIndex(T* Buffer, int BufferSize, T& OutputValue, int& Position, int Stride = 1)
     {
         vDSP_Length pos = 0;
 
