@@ -1,52 +1,53 @@
 #include <Accelerate/Accelerate.h>
 #include "Accelerate/AccelerateRange.h"
 #include <catch2/catch_test_macros.hpp>
+#include <catch2/catch_template_test_macros.hpp>
 
-TEST_CASE ("Accelerate Ranges Unit tests", "[Accelerate Ranges]")
+TEMPLATE_TEST_CASE("Accelerate Ranges Unit Tests", "[Accelerate Ranges]", float, double)
 {
-    const auto bufferSize = 256;
-    const auto minimumIndex = 2;
-    const auto maximumIndex = 18;
+    using T = TestType;
 
-    const auto minValue = -1.f;
-    const auto maxValue = 1.f;
-    
-    std::vector<float> buffer (bufferSize);
-    buffer.assign (bufferSize, 0.f);
+    constexpr auto bufferSize = 256;
+    constexpr auto minimumIndex = 2;
+    constexpr auto maximumIndex = 18;
 
-    buffer.at (minimumIndex) = minValue;
-    buffer.at (maximumIndex) = maxValue;
+    const T minValue = static_cast<T>(-1.0);
+    const T maxValue = static_cast<T>(1.0);
 
-    SECTION ("Minimum Value")
+    std::vector<T> buffer(bufferSize, static_cast<T>(0));
+
+    buffer.at(minimumIndex) = minValue;
+    buffer.at(maximumIndex) = maxValue;
+
+    SECTION("Minimum Value")
     {
-        auto outputValue = -10.f;
-        Vectorised::Range::minimumValue (buffer.data(), bufferSize, outputValue);
-        REQUIRE (outputValue == minValue);
+        T outputValue = static_cast<T>(-10.0);
+        Vectorised::Range::minimumValue(buffer.data(), bufferSize, outputValue);
+        REQUIRE(outputValue == minValue);
     }
 
-    SECTION ("Minimum Value with Index")
+    SECTION("Minimum Value with Index")
     {
-        auto outputValue = -10.f;
-        auto range = -1;
-        Vectorised::Range::minimumValueIndex (buffer.data(), bufferSize, outputValue, range);
-        REQUIRE (outputValue == minValue);
-        REQUIRE (range == minimumIndex);
+        T outputValue = static_cast<T>(-10.0);
+        int index = -1;
+        Vectorised::Range::minimumValueIndex(buffer.data(), bufferSize, outputValue, index);
+        REQUIRE(outputValue == minValue);
+        REQUIRE(index == minimumIndex);
     }
 
-    SECTION ("Maximum Value")
+    SECTION("Maximum Value")
     {
-        auto outputValue = -10.f;
-        auto range = -1;
-        Vectorised::Range::maximumValue (buffer.data(), bufferSize, outputValue);
-        REQUIRE (outputValue == maxValue);
+        T outputValue = static_cast<T>(-10.0);
+        Vectorised::Range::maximumValue(buffer.data(), bufferSize, outputValue);
+        REQUIRE(outputValue == maxValue);
     }
 
-    SECTION ("Maximum Value with Index")
+    SECTION("Maximum Value with Index")
     {
-        auto outputValue = -10.f;
-        auto range = -1;
-        Vectorised::Range::maximumValueIndex (buffer.data(), bufferSize, outputValue, range);
-        REQUIRE (outputValue == maxValue);
-        REQUIRE (range == maximumIndex);
+        T outputValue = static_cast<T>(-10.0);
+        int index = -1;
+        Vectorised::Range::maximumValueIndex(buffer.data(), bufferSize, outputValue, index);
+        REQUIRE(outputValue == maxValue);
+        REQUIRE(index == maximumIndex);
     }
 }
