@@ -32,11 +32,11 @@ namespace Vectorised::Utilities
     }
 
     template <typename T>
-    static void zeroBuffer (T* ValueToFill, const int BufferSize, const int BufferStride = 1)
+    static void zeroBuffer (T* Buffer, const int BufferSize, const int BufferStride = 1)
     {
         if constexpr (std::is_same_v<T, float>)
-            vdsp_vzero (ValueToFill, BufferStride, BufferSize);
+            vdsp_vzero (Buffer, BufferStride, BufferSize);
         if constexpr (std::is_same_v<T, double>)
-            vdsp_vzeroD (ValueToFill, BufferStride, BufferSize);
+            vdsp_vzeroD (Buffer, BufferStride, BufferSize);
     }
 };
