@@ -1,7 +1,5 @@
 #pragma once
 
-#include <Accelerate/Accelerate.h>
-
 namespace Vectorised::Utilities
 {
     template <typename T>

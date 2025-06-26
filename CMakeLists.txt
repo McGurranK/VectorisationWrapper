@@ -5,12 +5,14 @@ set (CMAKE_CXX_STANDARD 23)
 add_subdirectory (Catch2)
 
 if (APPLE)
-   add_executable (accelerate_DSP VectorisationWrappers/Accelerate/AccelerateWrapper.cpp
-                                   VectorisationWrappers/AccelerateArithmeticUnitTests.cpp
-                                   VectorisationWrappers/AccelerateUtilitiesUnitTests.cpp
-                                   VectorisationWrappers/AccelerateRangeUnitTests.cpp)
+    set (ACCELERATE_SOURCES VectorisationWrappers/Accelerate/AccelerateWrapper.cpp
+                            VectorisationWrappers/AccelerateArithmeticUnitTests.cpp
+                            VectorisationWrappers/AccelerateUtilitiesUnitTests.cpp
+                            VectorisationWrappers/AccelerateRangeUnitTests.cpp)
 
-   target_link_libraries (accelerate_DSP PRIVATE Catch2::Catch2WithMain "$<LINK_LIBRARY:FRAMEWORK,Accelerate>")
-ELSEIF (MSVC)
-    message ("No Wrapper is availble")
-ENDIF()
+    add_executable(accelerate_DSP ${ACCELERATE_SOURCES})
+
+    target_link_libraries (accelerate_DSP PRIVATE Catch2::Catch2WithMain "$<LINK_LIBRARY:FRAMEWORK,Accelerate>")
+elseif (MSVC)
+    message ("No Wrapper")
+endif()

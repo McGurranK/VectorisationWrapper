@@ -1,7 +1,5 @@
 #pragma once
 
-#include <Accelerate/Accelerate.h>
-
 namespace Vectorised::Range
 {
     template <typename T>

@@ -1,6 +1,6 @@
 // Unit tests for VDSP WRAPPER
 
-#include "Accelerate/AccelerateArithmetic.h"
+#include "Accelerate/AccelerateWrapper.h"
 #include <catch2/catch_test_macros.hpp>
 #include <catch2/catch_template_test_macros.hpp>
 
