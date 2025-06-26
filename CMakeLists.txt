@@ -9,6 +9,7 @@ if (APPLE)
                                     VectorisationWrappers/Accelerate/AccelerateRange.h
                                     VectorisationWrappers/Accelerate/AccelerateUtilities.h
                                     VectorisationWrappers/AccelerateWrapperUnitTests.cpp
+                                    VectorisationWrappers/AccelerateUtilitiesUnitTests.cpp
                                     VectorisationWrappers/AccelerateRangeUnitTests.cpp)
 
     target_link_libraries (accelerate_DSP PRIVATE Catch2::Catch2WithMain "$<LINK_LIBRARY:FRAMEWORK,Accelerate>")

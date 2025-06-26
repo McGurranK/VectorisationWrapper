@@ -1,8 +1,9 @@
+#include <Accelerate/Accelerate.h>
 #include "Accelerate/AccelerateUtilities.h"
 #include <catch2/catch_test_macros.hpp>
 #include <catch2/catch_template_test_macros.hpp>
 
-TEMPLATE_TEST_CASE("Accelerate Ranges Unit Tests", "[Accelerate Ranges]", float, double)
+TEMPLATE_TEST_CASE("Accelerate Utils Unit Testing", "[Accelerate U]", float, double)
 {
     using T = TestType;
 
@@ -16,7 +17,15 @@ TEMPLATE_TEST_CASE("Accelerate Ranges Unit Tests", "[Accelerate Ranges]", float,
 
 
     SECTION("Accelerate Abs Values")
-    {    }
+    {
+        inputBuffer.assign (bufferSize, static_cast<T>(-1));
+        Vectorised::Utilities::absBuffer (inputBuffer.data(), outputBuffer.data(), bufferSize);
+
+        for (const auto& value : outputBuffer)
+        {
+            REQUIRE (value == static_cast<T>(1));
+        }
+    }
 
     SECTION ("Accelerate Fill Buffer")
     {
@@ -39,8 +48,15 @@ TEMPLATE_TEST_CASE("Accelerate Ranges Unit Tests", "[Accelerate Ranges]", float,
         }
     }
 
-    SECTION ("Accelerate Scale Buffer")
-    {
-        // Vectorised::Utilities::scalerMultiplication (inputBuffer.data(), outputBuffer.data(), 256);
-    }
+    // SECTION ("Accelerate Scale Buffer")
+    // {
+    //     const auto scalarValue = static_cast<T>(2);
+    //     inputBuffer.assign (bufferSize, static_cast<T>(1));
+    //     Vectorised::Utilities::scalerMultiplication (inputBuffer.data(), outputBuffer.data(), bufferSize, scalarValue);
+    //
+    //     for (const auto& Value : outputBuffer)
+    //     {
+    //         REQUIRE (Value == 1);
+    //     }
+    // }
 }
