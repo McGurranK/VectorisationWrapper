@@ -42,24 +42,6 @@ namespace Vectorised
     }
 
     template <typename T>
-    static void scalerMultiplication (T* InputBuffer, T* OutputBuffer, const int BufferSize, const int InputStride = 1, const int OutputStride = 1)
-    {
-        if constexpr (std::is_same_v<T, float>)
-            VDSP_vscal (InputBuffer, InputStride, OutputBuffer, OutputStride, BufferSize);
-        else if constexpr (std::is_same_v<T, double>)
-            VDSP_vscalD (InputBuffer, InputStride, OutputBuffer, OutputStride, BufferSize);
-    }
-
-    template <typename T>
-    static void fillBuffer (T* ValueToFill, T* Buffer, const int BufferSize, const int BufferStride = 1)
-    {
-        if constexpr (std::is_same_v<T, float>)
-            VDSP_vfill (ValueToFill, Buffer, BufferStride, BufferSize);
-        else if constexpr (std::is_same_v<T, double>)
-            VDSP_vfill (ValueToFill, Buffer, BufferStride, BufferSize);
-    }
-
-    template <typename T>
     static void divisionVectorised (T* OutputPtr, T* InputPtr, const int BufferSize)
     {
         if constexpr (std::is_same_v<T, float>)
