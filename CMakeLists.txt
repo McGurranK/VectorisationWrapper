@@ -5,10 +5,10 @@ set (CMAKE_CXX_STANDARD 23)
 add_subdirectory (Catch2)
 
 if (APPLE)
-    add_executable (accelerate_DSP  VectorisationWrappers/Accelerate/AccelerateWrapper.h
+    add_executable (accelerate_DSP VectorisationWrappers/Accelerate/AccelerateArithmetic.h
                                     VectorisationWrappers/Accelerate/AccelerateRange.h
                                     VectorisationWrappers/Accelerate/AccelerateUtilities.h
-                                    VectorisationWrappers/AccelerateWrapperUnitTests.cpp
+                                    VectorisationWrappers/AccelerateArithmeticUnitTests.cpp
                                     VectorisationWrappers/AccelerateUtilitiesUnitTests.cpp
                                     VectorisationWrappers/AccelerateRangeUnitTests.cpp)
 

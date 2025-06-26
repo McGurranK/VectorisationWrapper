@@ -1,10 +1,8 @@
 // Unit tests for VDSP WRAPPER
 
-#include <Accelerate/Accelerate.h>
-#include "Accelerate/AccelerateWrapper.h"
+#include "Accelerate/AccelerateArithmetic.h"
 #include <catch2/catch_test_macros.hpp>
 #include <catch2/catch_template_test_macros.hpp>
-
 
 TEMPLATE_TEST_CASE ("VDSP wrapper testing", "[VDSP Wrapper]", float, double)
 {
@@ -12,17 +10,17 @@ TEMPLATE_TEST_CASE ("VDSP wrapper testing", "[VDSP Wrapper]", float, double)
 
     constexpr auto bufferSize = 1024;
 
-    std::vector<T> input (bufferSize);
-    std::vector<T> output (bufferSize);
+    std::vector<T> BufferA (bufferSize);
+    std::vector<T> BufferB (bufferSize);
 
-    input.assign (bufferSize, 0.0f);
-    output.assign (bufferSize, 1.0f);
+    BufferA.assign (bufferSize, 0.0f);
+    BufferB.assign (bufferSize, 1.0f);
 
     SECTION ("Addition Test")
     {
-        Vectorised::additionVectorised (input.data(), output.data(), bufferSize);
+        Vectorised::additionVectorised (BufferA.data(), BufferB.data(), BufferB.data(), bufferSize);
 
-        for (const auto& value : output)
+        for (const auto& value : BufferB)
         {
             REQUIRE (value == static_cast<T>(1));
         }
@@ -30,13 +28,12 @@ TEMPLATE_TEST_CASE ("VDSP wrapper testing", "[VDSP Wrapper]", float, double)
 
     SECTION ("Subtraction Test")
     {
-        input.assign (bufferSize, 5.0f);
-        output.assign (bufferSize, 4.0f);
+        BufferA.assign (bufferSize, 4.0f);
+        BufferB.assign (bufferSize, 5.0f);
 
-        // Todo: This call order is confusing
-        Vectorised::subtractionVectorised (output.data(), input.data(), bufferSize);
+        Vectorised::subtractionVectorised (BufferA.data(), BufferB.data(), BufferB.data(), bufferSize);
 
-        for (const auto& value : output)
+        for (const auto& value : BufferB)
         {
             REQUIRE (value == static_cast<T>(1));
         }
@@ -44,13 +41,12 @@ TEMPLATE_TEST_CASE ("VDSP wrapper testing", "[VDSP Wrapper]", float, double)
 
     SECTION ("Multiplication Test")
     {
-        input.assign (bufferSize, 2.0f);
-        output.assign (bufferSize, 1.0f);
+        BufferA.assign (bufferSize, 2.0f);
+        BufferB.assign (bufferSize, 1.0f);
 
-        // Todo: Order is confusing
-       Vectorised::multiplicationVectorised (input.data(), output.data(), bufferSize);
+       Vectorised::multiplicationVectorised (BufferA.data(), BufferB.data(), BufferB.data(), bufferSize);
 
-        for (const auto& value : input)
+        for (const auto& value : BufferB)
         {
             REQUIRE (value == static_cast<T>(2));
         }
@@ -58,18 +54,17 @@ TEMPLATE_TEST_CASE ("VDSP wrapper testing", "[VDSP Wrapper]", float, double)
 
     SECTION ("Division Test")
     {
-        input.assign (bufferSize, 2.0f);
-        output.assign (bufferSize, 2.0f);
+        BufferA.assign (bufferSize, 2.0f);
+        BufferB.assign (bufferSize, 2.0f);
 
-        // Todo: Function input confusing
-        Vectorised::divisionVectorised (input.data(), output.data(), bufferSize);
+        Vectorised::divisionVectorised (BufferA.data(), BufferB.data(), BufferB.data(), bufferSize);
 
-        for (const auto& value : input)
+        for (const auto& value : BufferB)
         {
             REQUIRE (value == static_cast<T>(1));
         }
     }
-    
+
     // SECTION ("Division Test")
     // {
     //     Vectorised::tanhVectorised (input.data(), output.data(), 256);
