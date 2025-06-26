@@ -48,15 +48,15 @@ TEMPLATE_TEST_CASE("Accelerate Utils Unit Testing", "[Accelerate U]", float, dou
         }
     }
 
-    // SECTION ("Accelerate Scale Buffer")
-    // {
-    //     const auto scalarValue = static_cast<T>(2);
-    //     inputBuffer.assign (bufferSize, static_cast<T>(1));
-    //     Vectorised::Utilities::scalerMultiplication (inputBuffer.data(), outputBuffer.data(), bufferSize, scalarValue);
-    //
-    //     for (const auto& Value : outputBuffer)
-    //     {
-    //         REQUIRE (Value == 1);
-    //     }
-    // }
+    SECTION ("Accelerate Scale Buffer")
+    {
+        auto scalarValue = static_cast<T>(2);
+        inputBuffer.assign (bufferSize, static_cast<T>(1));
+        Vectorised::Utilities::scalerMultiplication (inputBuffer.data(), outputBuffer.data(), bufferSize, scalarValue);
+
+        for (const auto& Value : outputBuffer)
+        {
+            REQUIRE (Value == 2);
+        }
+    }
 }
