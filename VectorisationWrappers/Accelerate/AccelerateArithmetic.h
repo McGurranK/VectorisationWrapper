@@ -2,7 +2,6 @@
 
 #include <Accelerate/Accelerate.h>
 
-// VDSP wrapper namespace in a vectorised way
 namespace Vectorised
 {
     // Vectorised Addition function for VDSP

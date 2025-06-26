@@ -1,3 +1,10 @@
 //
-// Created by Kristian Mc Gurran on 12/06/2025.
+// Including all the header files
 //
+
+#include <Accelerate/Accelerate.h>
+#include <type_traits>
+#include "AccelerateArithmetic.h"
+#include "AccelerateRange.h"
+#include "AccelerateTrigonometry.h"
+#include "AccelerateUtilities.h"

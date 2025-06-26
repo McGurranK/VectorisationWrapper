@@ -1,7 +1,7 @@
 #pragma once
+
 #include <Accelerate/Accelerate.h>
 
-// VDSP wrapper namespace in a vectorised way
 namespace Vectorised::Utilities
 {
     template <typename T>

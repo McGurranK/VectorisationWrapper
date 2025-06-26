@@ -1,7 +1,6 @@
 #pragma once
 
 #include <Accelerate/Accelerate.h>
-#include <type_traits>
 
 namespace Vectorised::Trigonometry
 {
