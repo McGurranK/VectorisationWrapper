@@ -49,41 +49,4 @@ namespace Vectorised
         else if constexpr (std::is_same_v<T, double>)
             vvdiv (OutputBuffer, BufferA, BufferB, &BufferSize);
     }
-
-
-    // Vectorised tanh function for VDSP
-    template <typename T>
-    static void tanhVectorised (const T* InputBuffer, T* OutputBuffer, const int BufferSize)
-    {
-        if constexpr (std::is_same_v<T, float>)
-            vvtanhf (OutputBuffer, InputBuffer, &BufferSize);
-        else if constexpr (std::is_same_v<T, double>)
-            vvtanh (OutputBuffer, InputBuffer, &BufferSize);
-        else
-            static_assert (sizeof(T) == 0, "Unsupported type for tanh");
-    }
-
-    // Vectorised tanh function for hard clipping
-    template <typename T>
-    static void hardClipVectorised(const T* InputBuffer, T* OutputBuffer, const int BufferSize, const T* ClipLowerLimit, const T* ClipUpperLimit)
-    {
-        if constexpr (std::is_same_v<T, float>)
-            vDSP_vclip(InputBuffer, 1, ClipLowerLimit, ClipUpperLimit, OutputBuffer, 1, BufferSize);
-        else if constexpr (std::is_same_v<T, double>)
-            vDSP_vclipD(InputBuffer, 1, ClipLowerLimit, ClipUpperLimit, OutputBuffer, 1, BufferSize);
-        else
-            static_assert (sizeof(T) == 0, "Unsupported type for hard clipping");
-    }
-
-    // Vectorised tanh function for sine
-    template <typename T>
-    static void sineVectorised (T* InputBuffer, const int BufferSize)
-    {
-        if constexpr (std::is_same_v<T, float>)
-            vvsinf (InputBuffer, InputBuffer, &BufferSize);
-        else if constexpr  (std::is_same_v<T, double>)
-            vvsin (InputBuffer, InputBuffer, &BufferSize);
-        else
-            static_assert (sizeof(T) == 0, "Unsupported type for sine");
-    }
 };
