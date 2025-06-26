@@ -6,9 +6,10 @@ add_subdirectory (Catch2)
 
 if (APPLE)
     set (ACCELERATE_SOURCES VectorisationWrappers/Accelerate/AccelerateWrapper.cpp
-                            VectorisationWrappers/AccelerateArithmeticUnitTests.cpp
-                            VectorisationWrappers/AccelerateUtilitiesUnitTests.cpp
-                            VectorisationWrappers/AccelerateRangeUnitTests.cpp)
+            VectorisationWrappers/Accelerate/Tests/AccelerateArithmeticUnitTests.cpp
+            VectorisationWrappers/Accelerate/Tests/AccelerateUtilitiesUnitTests.cpp
+            VectorisationWrappers/Accelerate/Tests/AccelerateRangeUnitTests.cpp
+            VectorisationWrappers/Accelerate/Tests/AccelerateTrigonometryUnitTests.cpp)
 
     add_executable(accelerate_DSP ${ACCELERATE_SOURCES})
 
