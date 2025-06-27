@@ -40,5 +40,23 @@ TEMPLATE_TEST_CASE("Accelerate Trigonometry Unit Testing", "[Accelerate Trigonom
 
     SECTION ("Sigmud Function Tests")
     {
+        const auto minValue = static_cast<T>(-1);
+        const auto maxValue = static_cast<T>(1);
+
+        workingBuffer.assign (bufferSize, static_cast<T> (-10));
+        Vectorised::Trigonometry::hardClipVectorised (workingBuffer.data(), workingBuffer.data(), bufferSize, &minValue, &maxValue);
+
+        for (const auto& value : workingBuffer)
+        {
+            REQUIRE (value == Catch::Approx (minValue));
+        }
+
+        workingBuffer.assign (bufferSize, static_cast<T> (10));
+        Vectorised::Trigonometry::hardClipVectorised (workingBuffer.data(), workingBuffer.data(), bufferSize, &minValue, &maxValue);
+
+        for (const auto& value : workingBuffer)
+        {
+            REQUIRE (value == Catch::Approx (maxValue));
+        }
     }
 }
