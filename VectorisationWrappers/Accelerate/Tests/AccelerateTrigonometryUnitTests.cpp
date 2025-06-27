@@ -85,6 +85,30 @@ TEMPLATE_TEST_CASE("Accelerate Trigonometry Unit Testing", "[Accelerate Trigonom
         }
     }
 
+    SECTION ("Sinh Function Tests")
+    {
+        const auto sinhValue = static_cast<T> (std::sinh (1.f));
+
+        Vectorised::Trigonometry::sinhVectorised (workingBuffer.data(), workingBuffer.data(), bufferSize);
+
+        for (const auto& value : workingBuffer)
+        {
+            REQUIRE (value == Catch::Approx (sinhValue));
+        }
+    }
+
+    SECTION ("Cosh Function Tests")
+    {
+        const auto coshValue = static_cast<T> (std::cosh (1.f));
+
+        Vectorised::Trigonometry::coshVectorised (workingBuffer.data(), workingBuffer.data(), bufferSize);
+
+        for (const auto& value : workingBuffer)
+        {
+            REQUIRE (value == Catch::Approx (coshValue));
+        }
+    }
+
     SECTION ("Tanh Function Tests")
     {
         workingBuffer.assign (bufferSize, static_cast<T> (10));
