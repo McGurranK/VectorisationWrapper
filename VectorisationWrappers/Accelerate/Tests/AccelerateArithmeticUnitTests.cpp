@@ -1,6 +1,6 @@
 // Unit tests for VDSP WRAPPER
 
-#include "Accelerate/AccelerateArithmetic.h"
+#include "../AccelerateWrapper.h"
 #include <catch2/catch_test_macros.hpp>
 #include <catch2/catch_template_test_macros.hpp>
 
@@ -64,22 +64,4 @@ TEMPLATE_TEST_CASE ("VDSP wrapper testing", "[VDSP Wrapper]", float, double)
             REQUIRE (value == static_cast<T>(1));
         }
     }
-
-    // SECTION ("Division Test")
-    // {
-    //     Vectorised::tanhVectorised (input.data(), output.data(), 256);
-    // }
-    //
-    // SECTION ("Division Test")
-    // {
-    //     Vectorised::sineVectorised (input.data(), 256);
-    // }
-    //
-    // SECTION ("Division Test")
-    // {
-    //     const auto lowerLimit = -1.f;
-    //     const auto upperLimit = -1.f;
-    //
-    //     Vectorised::hardClipVectorised (input.data(), output.data(), 256, &lowerLimit, &upperLimit);
-    // }
 }

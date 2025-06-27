@@ -1,5 +1,4 @@
-#include <Accelerate/Accelerate.h>
-#include "Accelerate/AccelerateUtilities.h"
+#include "../AccelerateWrapper.h"
 #include <catch2/catch_test_macros.hpp>
 #include <catch2/catch_template_test_macros.hpp>
 
