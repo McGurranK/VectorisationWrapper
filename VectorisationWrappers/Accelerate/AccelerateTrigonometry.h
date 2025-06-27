@@ -14,6 +14,39 @@ namespace Vectorised::Trigonometry
     }
 
     template <typename T>
+    static void inverseSinhVectorised (const T* WorkBuffer, T* OutputBuffer, const int BufferSize)
+    {
+        if constexpr (std::is_same_v<T, float>)
+            vvasinhf (OutputBuffer, WorkBuffer, &BufferSize);
+        else if constexpr (std::is_same_v<T, double>)
+            vvasinh (OutputBuffer, WorkBuffer, &BufferSize);
+        else
+            static_assert (sizeof(T) == 0, "Unsupported type for tanh");
+    }
+
+    template <typename T>
+    static void inverseCoshVectorised (const T* WorkBuffer, T* OutputBuffer, const int BufferSize)
+    {
+        if constexpr (std::is_same_v<T, float>)
+            vvacoshf (OutputBuffer, WorkBuffer, &BufferSize);
+        else if constexpr (std::is_same_v<T, double>)
+            vvacosh (OutputBuffer, WorkBuffer, &BufferSize);
+        else
+            static_assert (sizeof(T) == 0, "Unsupported type for tanh");
+    }
+
+    template <typename T>
+    static void inverseTanhVectorised (const T* WorkBuffer, T* OutputBuffer, const int BufferSize)
+    {
+        if constexpr (std::is_same_v<T, float>)
+            vvatanhf (OutputBuffer, WorkBuffer, &BufferSize);
+        else if constexpr (std::is_same_v<T, double>)
+            vvatanh (OutputBuffer, WorkBuffer, &BufferSize);
+        else
+            static_assert (sizeof(T) == 0, "Unsupported type for tanh");
+    }
+
+    template <typename T>
     static void sinhVectorised (const T* WorkBuffer, T* OutputBuffer, const int BufferSize)
     {
         if constexpr (std::is_same_v<T, float>)

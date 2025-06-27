@@ -122,7 +122,46 @@ TEMPLATE_TEST_CASE("Accelerate Trigonometry Unit Testing", "[Accelerate Trigonom
         }
     }
 
-    SECTION ("Sigmud Function Tests")
+    SECTION ("Inverse Hyperbolic Cosine Function Tests")
+    {
+        workingBuffer.assign (bufferSize, static_cast<T> (2));
+        const auto compareValue = static_cast<T> (std::asinh (2));
+
+        Vectorised::Trigonometry::inverseSinhVectorised (workingBuffer.data(), workingBuffer.data(), bufferSize);
+
+        for (const auto& value : workingBuffer)
+        {
+            REQUIRE (value == Catch::Approx (compareValue));
+        }
+    }
+
+    SECTION ("Inverse Hyperbolic Cosine Function Tests")
+    {
+        workingBuffer.assign (bufferSize, static_cast<T> (2));
+        const auto compareValue = static_cast<T> (std::acosh (2));
+
+        Vectorised::Trigonometry::inverseCoshVectorised (workingBuffer.data(), workingBuffer.data(), bufferSize);
+
+        for (const auto& value : workingBuffer)
+        {
+            REQUIRE (value == Catch::Approx (compareValue));
+        }
+    }
+
+    SECTION ("Inverse Hyperbolic Tangent Function Tests")
+    {
+        workingBuffer.assign (bufferSize, static_cast<T> (0.8));
+        const auto compareValue = static_cast<T> (std::atanh (0.8));
+
+        Vectorised::Trigonometry::inverseTanhVectorised (workingBuffer.data(), workingBuffer.data(), bufferSize);
+
+        for (const auto& value : workingBuffer)
+        {
+            REQUIRE (value == Catch::Approx (compareValue));
+        }
+    }
+
+    SECTION ("Sigmoid Function Tests")
     {
         const auto minValue = static_cast<T>(-1);
         const auto maxValue = static_cast<T>(1);
