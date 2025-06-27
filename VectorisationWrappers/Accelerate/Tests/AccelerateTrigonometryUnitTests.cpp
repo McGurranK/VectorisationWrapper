@@ -182,4 +182,16 @@ TEMPLATE_TEST_CASE("Accelerate Trigonometry Unit Testing", "[Accelerate Trigonom
             REQUIRE (value == Catch::Approx (maxValue));
         }
     }
+
+    SECTION ("Arc tangent of X Y Function Tests")
+    {
+        auto normalValue = static_cast<T> (std::atan2 (1.f, 1.f));
+
+        Vectorised::Trigonometry::arcTanXYVectorised (workingBuffer.data(), workingBuffer.data(), workingBuffer.data(), bufferSize);
+
+        for (const auto& value : workingBuffer)
+        {
+            REQUIRE (value == Catch::Approx (normalValue));
+        }
+    }
 }
