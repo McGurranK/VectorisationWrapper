@@ -75,9 +75,9 @@ TEMPLATE_TEST_CASE("Accelerate Trigonometry Unit Testing", "[Accelerate Trigonom
 
     SECTION ("ArcTan Function Tests")
     {
-        auto aTanValue = static_cast<T> (std::acos (1.f));
+        auto aTanValue = static_cast<T> (std::atan (1.f));
 
-        Vectorised::Trigonometry::arcCosVectorised (workingBuffer.data(), workingBuffer.data(), bufferSize);
+        Vectorised::Trigonometry::arcTanVectorised (workingBuffer.data(), workingBuffer.data(), bufferSize);
 
         for (const auto& value : workingBuffer)
         {

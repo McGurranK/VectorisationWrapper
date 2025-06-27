@@ -135,7 +135,7 @@ namespace Vectorised::Trigonometry
     }
 
     template <typename T>
-    static void tanCosVectorised (const T* InputBuffer, T* OutputBuffer, const int BufferSize)
+    static void arcTanVectorised (const T* InputBuffer, T* OutputBuffer, const int BufferSize)
     {
         if constexpr (std::is_same_v<T, float>)
             vvatanf (OutputBuffer, InputBuffer, &BufferSize);
