@@ -57,4 +57,37 @@ namespace Vectorised::Trigonometry
         else
             static_assert (sizeof(T) == 0, "Unsupported type for sine");
     }
+
+    template <typename T>
+    static void arcSinVectorised (const T* InputBuffer, T* OutputBuffer, const int BufferSize)
+    {
+        if constexpr (std::is_same_v<T, float>)
+            vvasinf (OutputBuffer, InputBuffer, &BufferSize);
+        else if constexpr  (std::is_same_v<T, double>)
+            vvasin (OutputBuffer, InputBuffer, &BufferSize);
+        else
+            static_assert (sizeof(T) == 0, "Unsupported type for sine");
+    }
+
+    template <typename T>
+    static void arcCosVectorised (const T* InputBuffer, T* OutputBuffer, const int BufferSize)
+    {
+        if constexpr (std::is_same_v<T, float>)
+            vvacosf (OutputBuffer, InputBuffer, &BufferSize);
+        else if constexpr  (std::is_same_v<T, double>)
+            vvacos (OutputBuffer, InputBuffer, &BufferSize);
+        else
+            static_assert (sizeof(T) == 0, "Unsupported type for sine");
+    }
+
+    template <typename T>
+    static void tanCosVectorised (const T* InputBuffer, T* OutputBuffer, const int BufferSize)
+    {
+        if constexpr (std::is_same_v<T, float>)
+            vvatanf (OutputBuffer, InputBuffer, &BufferSize);
+        else if constexpr  (std::is_same_v<T, double>)
+            vvatan (OutputBuffer, InputBuffer, &BufferSize);
+        else
+            static_assert (sizeof(T) == 0, "Unsupported type for sine");
+    }
 }

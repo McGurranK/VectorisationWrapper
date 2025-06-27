@@ -49,6 +49,42 @@ TEMPLATE_TEST_CASE("Accelerate Trigonometry Unit Testing", "[Accelerate Trigonom
         }
     }
 
+    SECTION ("Arcsin Function Tests")
+    {
+        auto asinValue = static_cast<T> (std::asin (1.f));
+
+        Vectorised::Trigonometry::arcSinVectorised (workingBuffer.data(), workingBuffer.data(), bufferSize);
+
+        for (const auto& value : workingBuffer)
+        {
+            REQUIRE (value == Catch::Approx (asinValue));
+        }
+    }
+
+    SECTION ("Arccos Function Tests")
+    {
+        auto aCosValue = static_cast<T> (std::acos (1.f));
+
+        Vectorised::Trigonometry::arcCosVectorised (workingBuffer.data(), workingBuffer.data(), bufferSize);
+
+        for (const auto& value : workingBuffer)
+        {
+            REQUIRE (value == Catch::Approx (aCosValue));
+        }
+    }
+
+    SECTION ("ArcTan Function Tests")
+    {
+        auto aTanValue = static_cast<T> (std::acos (1.f));
+
+        Vectorised::Trigonometry::arcCosVectorised (workingBuffer.data(), workingBuffer.data(), bufferSize);
+
+        for (const auto& value : workingBuffer)
+        {
+            REQUIRE (value == Catch::Approx (aTanValue));
+        }
+    }
+
     SECTION ("Tanh Function Tests")
     {
         workingBuffer.assign (bufferSize, static_cast<T> (10));
