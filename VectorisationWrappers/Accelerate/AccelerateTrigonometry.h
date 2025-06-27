@@ -46,4 +46,15 @@ namespace Vectorised::Trigonometry
         else
             static_assert (sizeof(T) == 0, "Unsupported type for sine");
     }
+
+    template <typename T>
+    static void tanVectorised (const T* InputBuffer, T* OutputBuffer, const int BufferSize)
+    {
+        if constexpr (std::is_same_v<T, float>)
+            vvtanf (OutputBuffer, InputBuffer, &BufferSize);
+        else if constexpr  (std::is_same_v<T, double>)
+            vvtan (OutputBuffer, InputBuffer, &BufferSize);
+        else
+            static_assert (sizeof(T) == 0, "Unsupported type for sine");
+    }
 }

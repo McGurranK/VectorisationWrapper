@@ -37,6 +37,18 @@ TEMPLATE_TEST_CASE("Accelerate Trigonometry Unit Testing", "[Accelerate Trigonom
         }
     }
 
+    SECTION ("Tan Function Tests")
+    {
+        auto tanValue = static_cast<T> (std::tan (1.f));
+
+        Vectorised::Trigonometry::tanVectorised (workingBuffer.data(), workingBuffer.data(), bufferSize);
+
+        for (const auto& value : workingBuffer)
+        {
+            REQUIRE (value == Catch::Approx (tanValue));
+        }
+    }
+
     SECTION ("Tanh Function Tests")
     {
         workingBuffer.assign (bufferSize, static_cast<T> (10));
