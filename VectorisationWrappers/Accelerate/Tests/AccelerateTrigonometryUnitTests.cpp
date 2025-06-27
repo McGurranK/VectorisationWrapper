@@ -17,11 +17,23 @@ TEMPLATE_TEST_CASE("Accelerate Trigonometry Unit Testing", "[Accelerate Trigonom
     {
         auto sinValue = static_cast<T> (std::sin (1.f));
 
-        Vectorised::Trigonometry::sineVectorised (workingBuffer.data(), bufferSize);
+        Vectorised::Trigonometry::sineVectorised (workingBuffer.data(), workingBuffer.data(), bufferSize);
 
         for (const auto& value : workingBuffer)
         {
             REQUIRE (value == Catch::Approx (sinValue));
+        }
+    }
+
+    SECTION ("Cos Function Tests")
+    {
+        auto cosValue = static_cast<T> (std::cos (1.f));
+
+        Vectorised::Trigonometry::cosVectorised (workingBuffer.data(), workingBuffer.data(), bufferSize);
+
+        for (const auto& value : workingBuffer)
+        {
+            REQUIRE (value == Catch::Approx (cosValue));
         }
     }
 

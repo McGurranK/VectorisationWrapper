@@ -25,14 +25,24 @@ namespace Vectorised::Trigonometry
             static_assert (sizeof(T) == 0, "Unsupported type for hard clipping");
     }
 
-    // Vectorised tanh function for sine
     template <typename T>
-    static void sineVectorised (T* InputBuffer, const int BufferSize)
+    static void sineVectorised (const T* InputBuffer,  T* OutputBuffer,const int BufferSize)
     {
         if constexpr (std::is_same_v<T, float>)
-            vvsinf (InputBuffer, InputBuffer, &BufferSize);
+            vvsinf (OutputBuffer, InputBuffer, &BufferSize);
         else if constexpr  (std::is_same_v<T, double>)
-            vvsin (InputBuffer, InputBuffer, &BufferSize);
+            vvsin (OutputBuffer, InputBuffer, &BufferSize);
+        else
+            static_assert (sizeof(T) == 0, "Unsupported type for sine");
+    }
+
+    template <typename T>
+    static void cosVectorised (const T* InputBuffer, T* OutputBuffer, const int BufferSize)
+    {
+        if constexpr (std::is_same_v<T, float>)
+            vvcosf (OutputBuffer, InputBuffer, &BufferSize);
+        else if constexpr  (std::is_same_v<T, double>)
+            vvcos (OutputBuffer, InputBuffer, &BufferSize);
         else
             static_assert (sizeof(T) == 0, "Unsupported type for sine");
     }
