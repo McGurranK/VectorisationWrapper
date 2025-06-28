@@ -11,9 +11,15 @@ if (APPLE)
     target_include_directories (VECTORISATION_WRAPPER PUBLIC ${PROJECT_SOURCE_DIR}/VectorisationWrappers/Accelerate/)
 
     if (ENABLE_TESTS)
-        # Todo: fetch catch for tests
 
-        add_subdirectory (Catch2)
+        include(FetchContent)
+        FetchContent_Declare(
+                Catch2
+                GIT_REPOSITORY https://github.com/catchorg/Catch2.git
+                GIT_TAG v3.5.2)
+
+        FetchContent_MakeAvailable(Catch2)
+
         set (ACCELERATE_SOURCES
                 VectorisationWrappers/Accelerate/AccelerateWrapper.cpp
                 VectorisationWrappers/Accelerate/Tests/AccelerateArithmeticUnitTests.cpp
