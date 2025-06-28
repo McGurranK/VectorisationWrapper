@@ -1,19 +1,37 @@
 cmake_minimum_required (VERSION 3.25)
+
 project (WRAPPER DESCRIPTION "Vectorisation Wrapper with Unit tested" LANGUAGES CXX)
 
+option(ENABLE_TESTS "Build unit tests" OFF)
+
 set (CMAKE_CXX_STANDARD 23)
-add_subdirectory (Catch2)
 
 if (APPLE)
-    set (ACCELERATE_SOURCES VectorisationWrappers/Accelerate/AccelerateWrapper.cpp
-            VectorisationWrappers/Accelerate/Tests/AccelerateArithmeticUnitTests.cpp
-            VectorisationWrappers/Accelerate/Tests/AccelerateUtilitiesUnitTests.cpp
-            VectorisationWrappers/Accelerate/Tests/AccelerateRangeUnitTests.cpp
-            VectorisationWrappers/Accelerate/Tests/AccelerateTrigonometryUnitTests.cpp)
+    add_library (VECTORISATION_WRAPPER STATIC VectorisationWrappers/Accelerate/AccelerateWrapper.cpp)
+    target_include_directories (VECTORISATION_WRAPPER PUBLIC ${PROJECT_SOURCE_DIR}/VectorisationWrappers/Accelerate/)
 
-    add_executable(accelerate_DSP ${ACCELERATE_SOURCES})
+    if (ENABLE_TESTS)
 
-    target_link_libraries (accelerate_DSP PRIVATE Catch2::Catch2WithMain "$<LINK_LIBRARY:FRAMEWORK,Accelerate>")
+        include(FetchContent)
+        FetchContent_Declare(
+                Catch2
+                GIT_REPOSITORY https://github.com/catchorg/Catch2.git
+                GIT_TAG v3.5.2)
+
+        FetchContent_MakeAvailable(Catch2)
+
+        set (ACCELERATE_SOURCES
+                VectorisationWrappers/Accelerate/AccelerateWrapper.cpp
+                VectorisationWrappers/Accelerate/Tests/AccelerateArithmeticUnitTests.cpp
+                VectorisationWrappers/Accelerate/Tests/AccelerateUtilitiesUnitTests.cpp
+                VectorisationWrappers/Accelerate/Tests/AccelerateRangeUnitTests.cpp
+                VectorisationWrappers/Accelerate/Tests/AccelerateTrigonometryUnitTests.cpp)
+
+        add_executable(accelerate_DSP ${ACCELERATE_SOURCES})
+
+        target_link_libraries (accelerate_DSP PRIVATE Catch2::Catch2WithMain "$<LINK_LIBRARY:FRAMEWORK,Accelerate>")
+    endif ()
+
 elseif (MSVC)
     message ("No Wrapper")
 endif()
