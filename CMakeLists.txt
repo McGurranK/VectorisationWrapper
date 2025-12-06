@@ -25,7 +25,8 @@ if (APPLE)
                 VectorisationWrappers/Accelerate/Tests/AccelerateArithmeticUnitTests.cpp
                 VectorisationWrappers/Accelerate/Tests/AccelerateUtilitiesUnitTests.cpp
                 VectorisationWrappers/Accelerate/Tests/AccelerateRangeUnitTests.cpp
-                VectorisationWrappers/Accelerate/Tests/AccelerateTrigonometryUnitTests.cpp)
+                VectorisationWrappers/Accelerate/Tests/AccelerateTrigonometryUnitTests.cpp
+                VIVIAudioBasics/VIVIAudioBasics.cpp)
 
         add_executable(accelerate_DSP ${ACCELERATE_SOURCES})
 
