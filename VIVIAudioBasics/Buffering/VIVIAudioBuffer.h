@@ -1,11 +1,14 @@
 #pragma once
 #include <vector>
 
-class VIVIAudioBuffer final
+namespace VIVI::AudioBasics
 {
-public:
-    VIVIAudioBuffer() = default;
+    class VIVIAudioBuffer final
+    {
+    public:
+        VIVIAudioBuffer() = default;
 
 
-private:
-};
+    private:
+    };
+}

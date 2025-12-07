@@ -1,32 +1,56 @@
 #pragma once
 #include <concepts>
 #include <vector>
+#include <span>
 
 namespace VIVI::AudioBasics
 {
-    // Buffers have been configured to be one continuous block of memory
+    // Non-owning channel Pointer class for audio buffers
     template <std::floating_point SamplePtrType>
     class VIVIChannelPtr
     {
     public:
         explicit VIVIChannelPtr() = default;
 
-        void prepare (std::vector<SamplePtrType*>& samples)
+        void prepare(SamplePtrType** ChannelPtr, int NumberOfChannels)
         {
-            channelPtrBuffer = std::move(samples);
+            assert (ChannelPtr && "ChannelPtr is null");
+            assert (NumberOfChannels > 0 && "NumberOfChannels must be positive");
+
+            for (int i = 0; i < NumberOfChannels; ++i)
+                assert(ChannelPtr[i] && "Channel pointer at index is null");
+
+            channelPtrBuffer = std::span<SamplePtrType*>(ChannelPtr, NumberOfChannels);
         }
 
-        SamplePtrType* operator[] (const int channelIndex)
+        SamplePtrType* operator[] (const unsigned int channelIndex)
         {
+            const auto spanEmpty = channelPtrBuffer.empty();
             const auto numChannels = channelPtrBuffer.size();
 
-            // You are access invalid memory
-            assert (channelIndex < numChannels);
-            return channelPtrBuffer[channelIndex];
+            if (spanEmpty || numChannels <= channelIndex)
+            {
+                assert(spanEmpty && "Invalid channel context");
+                return nullptr;
+            }
+
+            return channelPtrBuffer [channelIndex];
+        }
+
+        SamplePtrType** getChannelPtr() noexcept
+        {
+            // Invalid channel configuration
+            assert (channelPtrBuffer.empty());
+            return channelPtrBuffer.data();
+        }
+
+        [[nodiscard]] int getNumberChannels() const
+        {
+            return static_cast<int>(channelPtrBuffer.size());
         }
 
     private:
-        std::vector<SamplePtrType*> channelPtrBuffer;
+        std::span<SamplePtrType*> channelPtrBuffer;
     };
 
 };

@@ -2,7 +2,7 @@ cmake_minimum_required (VERSION 3.25)
 
 project (WRAPPER DESCRIPTION "Vectorisation Wrapper with Unit tested" LANGUAGES CXX)
 
-option(ENABLE_TESTS "Build unit tests" OFF)
+option(ENABLE_TESTS "Build unit tests" ON)
 
 set (CMAKE_CXX_STANDARD 23)
 
